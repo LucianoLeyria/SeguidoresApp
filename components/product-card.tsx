@@ -13,7 +13,7 @@ interface ProductCardProps {
   quantity: string;
   description?: string;
   category?: string;
-  image: string;
+  image: string; 
 }
 
 const getPlatformLogo = (title: string, category?: string) => {
@@ -25,6 +25,15 @@ const getPlatformLogo = (title: string, category?: string) => {
   }
   if (titleLower.includes("youtube") || categoryLower.includes("youtube")) {
     return "/youtube-logo.jpg";
+  }
+  if (titleLower.includes("twitter") || categoryLower.includes("twitter")) {
+    return "/twitter-logo.jpg";
+  }
+  if (titleLower.includes("facebook") || categoryLower.includes("facebook")) {
+    return "/facebook-logo.jpg";
+  }
+  if (titleLower.includes("telegram") || categoryLower.includes("telegram")) {
+    return "/telegram-logo.jpg";
   }
   return "/iglogo.png";
 };
@@ -52,16 +61,16 @@ export function ProductCard({
 
   return (
     <>
-      <Card className="group overflow-hidden hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-300 bg-white border border-gray-200 hover:border-orange-500 shadow-md hover:scale-[1.02] rounded-2xl flex flex-col">
+      <Card className="py-3 gap-1 Agroup overflow-hidden hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-300 bg-white border border-gray-200 hover:border-orange-500 shadow-md hover:scale-[1.02] rounded-2xl flex flex-col">
         <div className="relative w-full bg-white overflow-hidden">
           {/* Imagen con altura ajustada responsive */}
-          <div className="relative w-full h-[250px] sm:h-[300px] md:h-[380px] lg:h-[420px]">
+          <div className="relative w-full h-[220px] sm:h-[300px] md:h-[380px] lg:h-[420px]">
             {!imageLoaded && <div className="absolute inset-0 bg-white animate-pulse" />}
             <Image
               src={image}
               alt="Social media background"
               fill
-              className="object-contain group-hover:scale-105 transition-transform duration-300"
+              className="object-contain rounded-2xl group-hover:scale-105 transition-transform duration-300"
               onLoad={() => setImageLoaded(true)}
             />
           </div>
@@ -81,7 +90,7 @@ export function ProductCard({
         </div>
 
         {/* Contenido */}
-        <div className="p-3 sm:p-5 bg-white space-y-3 flex flex-col flex-1">
+        <div className="p-3 sm:p-5 bg-white space-y-2 flex flex-col flex-1">
           <div className="text-center flex-1 flex flex-col justify-center min-h-[60px]">
             <h3 className="font-bold text-sm sm:text-base mb-1 text-gray-900 line-clamp-2">
               {title}
