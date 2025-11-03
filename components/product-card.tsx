@@ -13,7 +13,7 @@ interface ProductCardProps {
   quantity: string;
   description?: string;
   category?: string;
-  image: string; 
+  image: string;
 }
 
 const getPlatformLogo = (title: string, category?: string) => {
@@ -65,7 +65,9 @@ export function ProductCard({
         <div className="relative w-full bg-white overflow-hidden">
           {/* Imagen con altura ajustada responsive */}
           <div className="relative w-full h-[220px] sm:h-[300px] md:h-[380px] lg:h-[420px]">
-            {!imageLoaded && <div className="absolute inset-0 bg-white animate-pulse" />}
+            {!imageLoaded && (
+              <div className="absolute inset-0 bg-white animate-pulse" />
+            )}
             <Image
               src={image}
               alt="Social media background"
@@ -76,6 +78,7 @@ export function ProductCard({
           </div>
 
           {/* Logo centrado */}
+
           <div className="absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden shadow-xl ring-4 ring-white/80 transition-all duration-300 bg-white">
               <Image
@@ -101,6 +104,7 @@ export function ProductCard({
           </div>
 
           {/* Botones centrados y responsive */}
+
           <div className="flex flex-col sm:flex-row gap-2">
             <Button
               onClick={handleAddToCart}

@@ -7,6 +7,7 @@ import { FloatingCartButton } from "@/components/floating-cart-button";
 import { CartSidebar } from "@/components/cart-sidebar";
 import { Footer } from "@/components/footer";
 import { useState, useMemo } from "react";
+import { ProductGridClientes } from "@/components/ProductGridClientes"
 
 const seguidoresProducts = [
   {
@@ -160,14 +161,14 @@ const reposProducts = [
     title: "5,000 REPROS IG",
     price: "$8,000.00",
     quantity: "5,000",
-    image: "/1.png",
+    image: "/5000.png",
   },
   {
     id: 22,
     title: "10,000 REPROS IG",
     price: "$12,000.00",
     quantity: "10,000",
-    image: "/2.png",
+    image: "/10000.png",
   },
   //{ id: 23, title: "20,000 REPROS", price: "$20,000.00", quantity: "20,000", image: "/3.png" },
   //{ id: 24, title: "30,000 REPROS", price: "$28,000.00", quantity: "30,000", image: "/4.png" },
@@ -177,7 +178,7 @@ const reposProducts = [
     title: "50,000 REPROS IG",
     price: "$30,000.00",
     quantity: "50,000",
-    image: "/6.png",
+    image: "/50000.png",
   },
   //{ id: 27, title: "60,000 REPROS", price: "$42,000.00", quantity: "60,000", image: "/7.png" },
   //{ id: 28, title: "70,000 REPROS", price: "$45,000.00", quantity: "70,000", image: "/8.png" },
@@ -187,7 +188,7 @@ const reposProducts = [
     title: "100,000 REPROS IG",
     price: "$50,000.00",
     quantity: "100,000",
-    image: "/10.png",
+    image: "/100000.png",
   },
 ];
 
@@ -382,7 +383,6 @@ const seguidoresFacebook = [
   },
 ];
 
-
 const miembrosTelegram = [
   {
     id: 66,
@@ -397,6 +397,23 @@ const miembrosTelegram = [
     price: "$85,000.00",
     quantity: "5000",
     image: "/5.png",
+  },
+];
+
+const clientesContentos = [
+  {
+    id: 68,
+    title: "clientesContentos",
+    price: "",
+    quantity: "",
+    image: "/clientes1.png",
+  },
+  {
+    id: 69,
+    title: "clientesContentos",
+    price: "",
+    quantity: "",
+    image: "/clientes2.png",
   },
 ];
 
@@ -668,7 +685,7 @@ export default function Home() {
                     <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.707 8.293-1.79 8.436c-.135.609-.492.757-.997.472l-2.762-2.037-1.333 1.285c-.147.147-.271.271-.553.271l.197-2.793 5.086-4.593c.221-.197-.048-.307-.341-.11l-6.287 3.957-2.709-.848c-.59-.184-.601-.59.123-.872l10.588-4.083c.492-.18.923.12.765.87z" />
                   </svg>
 
-                 <h2 className="text-xl font-bold tracking-wider text-gray-900 lg:text-3xl">
+                  <h2 className="text-xl font-bold tracking-wider text-gray-900 lg:text-3xl">
                     MIEMBROS TELEGRAM
                   </h2>
                 </div>
@@ -679,6 +696,30 @@ export default function Home() {
               <ProductGrid products={filteredMiembrosTelegram} />
             </section>
           )}
+
+        {(selectedCategory === "all" || selectedCategory === "clientesContentos") && (
+          <section id="clientesContentos" className="mb-20 scroll-mt-20">
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center gap-3 mb-2">
+               {/*<svg
+                  className="w-8 h-8 text-gray-900"
+                  fill="#0088cc"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.707 8.293-1.79 8.436c-.135.609-.492.757-.997.472l-2.762-2.037-1.333 1.285c-.147.147-.271.271-.553.271l.197-2.793 5.086-4.593c.221-.197-.048-.307-.341-.11l-6.287 3.957-2.709-.848c-.59-.184-.601-.59.123-.872l10.588-4.083c.492-.18.923.12.765.87z" />
+                </svg>*/ }
+
+                <h2 className="text-xl font-bold tracking-wider text-gray-900 lg:text-3xl">
+                  CLIENTES SATISFECHOS
+                </h2>
+              </div>
+              <p className="text-sm text-gray-600">
+                Crece tu perfil de Instagram
+              </p>
+            </div>
+            <ProductGridClientes products={clientesContentos} />
+          </section>
+        )}
       </main>
 
       <Footer />
