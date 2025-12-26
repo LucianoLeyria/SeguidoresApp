@@ -9,7 +9,7 @@ interface Product {
   category?: string;
   image?: string;
 }
-
+//comment dummy
 interface ProductGridProps {
   products: Product[];
 }
