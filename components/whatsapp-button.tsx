@@ -6,7 +6,7 @@ export function WhatsAppButton() {
   return (
     <Button
       size="icon"
-      className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-110 z-50 cursor-pointer"
+      className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-110 z-50 cursor-pointer"
       onClick={() => window.open(`https://wa.me/5491149166103?text=${("Hola, quiero hacer una consulta")}`, "_blank")}
     >
       <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
