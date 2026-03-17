@@ -11,12 +11,19 @@ function SuccessContent() {
   const searchParams = useSearchParams()
   const { clearCart } = useCart()
 
-  useEffect(() => {
-    clearCart()
-  }, [])
-
   const paymentId = searchParams.get("payment_id")
   const status = searchParams.get("status")
+
+  useEffect(() => {
+    clearCart()
+    if (status === "approved" && paymentId && typeof window !== "undefined" && (window as any).fbq) {
+      ;(window as any).fbq("track", "Purchase", {
+        value: 0,
+        currency: "ARS",
+        transaction_id: paymentId,
+      })
+    }
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">

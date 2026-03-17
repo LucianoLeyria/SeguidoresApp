@@ -137,6 +137,19 @@ export default function CheckoutPage() {
     }
   }, [items, router])
 
+  useEffect(() => {
+    if (items.length > 0 && typeof window !== "undefined" && (window as any).fbq) {
+      const total = items.reduce((sum, item) => {
+        return sum + Number.parseFloat(item.price.replace(/[$,]/g, "")) * item.amount
+      }, 0)
+      ;(window as any).fbq("track", "InitiateCheckout", {
+        value: total,
+        currency: "ARS",
+        num_items: items.length,
+      })
+    }
+  }, [])
+
   if (items.length === 0) {
     return null
   }
