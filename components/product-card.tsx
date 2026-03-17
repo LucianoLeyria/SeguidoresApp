@@ -16,6 +16,17 @@ interface ProductCardProps {
   image: string;
 }
 
+const getServiceLabel = (title: string) => {
+  const lower = title.toLowerCase();
+  if (lower.includes("seguidor")) return "seguidores";
+  if (lower.includes("like")) return "likes";
+  if (lower.includes("repro")) return "reproducciones";
+  if (lower.includes("comentario")) return "comentarios";
+  if (lower.includes("suscriptor")) return "suscriptores";
+  if (lower.includes("miembro")) return "miembros";
+  return "";
+};
+
 const getPlatformInfo = (title: string, category?: string) => {
   const titleLower = title.toLowerCase();
   const categoryLower = category?.toLowerCase() || "";
@@ -57,6 +68,7 @@ export function ProductCard({
   };
 
   const platform = getPlatformInfo(title, category);
+  const serviceLabel = getServiceLabel(title);
 
   return (
     <>
@@ -76,10 +88,13 @@ export function ProductCard({
             />
           </div>
 
-          {/* Quantity - the hero of the card */}
-          <p className="text-4xl font-extrabold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent leading-none">
-            {quantity}
-          </p>
+          {/* Quantity + service type */}
+          <div>
+            <p className="text-4xl font-extrabold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent leading-none">
+              {quantity}
+            </p>
+            <p className="text-xs text-gray-500 font-medium mt-1">{serviceLabel}</p>
+          </div>
 
           {/* Price */}
           <div>
