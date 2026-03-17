@@ -34,6 +34,7 @@ export async function POST(request: NextRequest) {
           pending: `${process.env.NEXT_PUBLIC_SITE_URL}/payment/success`,
         },
         auto_return: "approved",
+        notification_url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/webhook/mercadopago`,
       },
     });
 
