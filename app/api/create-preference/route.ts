@@ -20,6 +20,8 @@ export async function POST(request: NextRequest) {
           unit_price: Number(item.price.replace(/[$,]/g, "")),
           currency_id: "ARS",
         })),
+        external_reference: payer.socialLink || "",
+        additional_info: payer.socialLink || "",
         payer: {
           email: payer.email,
           name: payer.fullName,

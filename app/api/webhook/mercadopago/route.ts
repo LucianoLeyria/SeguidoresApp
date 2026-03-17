@@ -28,10 +28,12 @@ export async function POST(request: NextRequest) {
       const paymentData = await payment.get({ id: body.data.id });
 
       if (paymentData.status === "approved") {
+        const socialLink = paymentData.external_reference || "No proporcionado";
         const message =
           `✅ PAGO APROBADO\n\n` +
           `💰 Monto: $${paymentData.transaction_amount?.toLocaleString()}\n` +
           `📧 Email: ${paymentData.payer?.email || "N/A"}\n` +
+          `🔗 Red social: ${socialLink}\n` +
           `🆔 ID Pago: ${paymentData.id}\n` +
           `📦 Descripcion: ${paymentData.description || "N/A"}\n` +
           `📅 Fecha: ${new Date(paymentData.date_created || "").toLocaleString("es-AR")}`;
