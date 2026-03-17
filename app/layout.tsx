@@ -16,40 +16,81 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Crecimientoinsta.arg - Seguidores, Likes y Mas para Redes Sociales",
-    template: "%s | Crecimientoinsta.arg",
+    default: "Comprar Seguidores Instagram Argentina | Crecimientoinsta",
+    template: "%s | Crecimientoinsta",
   },
   description:
-    "Compra seguidores de Instagram, likes, reproducciones, comentarios, seguidores de TikTok, YouTube y mas. Entrega rapida y segura. Pagos con MercadoPago.",
+    "Compra seguidores reales para Instagram, TikTok, YouTube, Facebook y Twitter en Argentina. Entrega en 24 horas, pago seguro con MercadoPago. Likes, reproducciones y comentarios.",
   keywords: [
-    "comprar seguidores instagram",
-    "likes instagram",
-    "seguidores tiktok",
-    "suscriptores youtube",
-    "seguidores argentina",
-    "redes sociales",
+    "comprar seguidores instagram argentina",
+    "comprar likes instagram",
+    "comprar seguidores tiktok argentina",
+    "comprar suscriptores youtube argentina",
+    "comprar seguidores facebook",
+    "comprar seguidores twitter argentina",
+    "aumentar seguidores instagram",
+    "seguidores reales instagram",
+    "likes instagram baratos argentina",
+    "reproducciones instagram",
+    "comentarios instagram",
+    "crecimiento redes sociales argentina",
+    "comprar miembros telegram",
   ],
-  authors: [{ name: "Crecimientoinsta.arg" }],
-  metadataBase: new URL("https://seguidores-app.vercel.app"),
+  authors: [{ name: "Crecimientoinsta" }],
+  metadataBase: new URL("https://crecimientoinsta.com"),
+  alternates: {
+    canonical: "https://crecimientoinsta.com",
+  },
   openGraph: {
     type: "website",
     locale: "es_AR",
-    url: "https://seguidores-app.vercel.app",
-    siteName: "Crecimientoinsta.arg",
-    title: "Crecimientoinsta.arg - Seguidores y Likes para Redes Sociales",
+    url: "https://crecimientoinsta.com",
+    siteName: "Crecimientoinsta",
+    title: "Comprar Seguidores Instagram Argentina | Crecimientoinsta",
     description:
-      "Compra seguidores de Instagram, likes, reproducciones y mas. Entrega en el dia.",
+      "Compra seguidores reales para Instagram, TikTok, YouTube y mas. Entrega en 24hs. Pago seguro con MercadoPago.",
+    images: [
+      {
+        url: "/logo.jpg",
+        width: 150,
+        height: 150,
+        alt: "Crecimientoinsta - Seguidores para Redes Sociales",
+      },
+    ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Crecimientoinsta.arg - Seguidores y Likes",
+    card: "summary",
+    title: "Comprar Seguidores Instagram Argentina | Crecimientoinsta",
     description:
-      "Compra seguidores de Instagram, likes, reproducciones y mas.",
+      "Compra seguidores reales para Instagram, TikTok, YouTube y mas. Entrega en 24hs.",
+    images: ["/logo.jpg"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Store",
+  name: "Crecimientoinsta",
+  url: "https://crecimientoinsta.com",
+  logo: "https://crecimientoinsta.com/logo.jpg",
+  description:
+    "Compra seguidores reales para Instagram, TikTok, YouTube, Facebook y Twitter en Argentina. Entrega en 24 horas.",
+  telephone: "+5491149166103",
+  email: "crecimientoinsta.arg@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "AR",
+  },
+  priceRange: "$$",
+  sameAs: ["https://www.instagram.com/crecimientoinsta.arg"],
 }
 
 export default function RootLayout({
@@ -59,6 +100,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="antialiased">
         <CartProvider>{children}</CartProvider>
       </body>

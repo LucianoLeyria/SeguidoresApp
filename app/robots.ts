@@ -1,6 +1,12 @@
 export default function robots() {
   return {
-    rules: { userAgent: "*", allow: "/" },
-    sitemap: "https://seguidores-app.vercel.app/sitemap.xml",
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/admin/", "/api/", "/checkout", "/payment/"],
+      },
+    ],
+    sitemap: "https://crecimientoinsta.com/sitemap.xml",
   }
 }
