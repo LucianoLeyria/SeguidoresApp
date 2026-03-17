@@ -14,6 +14,7 @@ interface Order {
   description: string
   date: string
   paymentMethod: string
+  socialLink: string
 }
 
 const statusConfig: Record<string, { label: string; color: string }> = {
@@ -187,6 +188,7 @@ export default function AdminOrders() {
                   <th className="text-left p-4 text-sm font-medium text-gray-600">Monto</th>
                   <th className="text-left p-4 text-sm font-medium text-gray-600">Email</th>
                   <th className="text-left p-4 text-sm font-medium text-gray-600">Descripcion</th>
+                  <th className="text-left p-4 text-sm font-medium text-gray-600">Red Social</th>
                   <th className="text-left p-4 text-sm font-medium text-gray-600">Medio de pago</th>
                   <th className="text-left p-4 text-sm font-medium text-gray-600">Fecha</th>
                 </tr>
@@ -194,13 +196,13 @@ export default function AdminOrders() {
               <tbody>
                 {loading && orders.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="p-8 text-center text-gray-500">
+                    <td colSpan={8} className="p-8 text-center text-gray-500">
                       Cargando pedidos...
                     </td>
                   </tr>
                 ) : orders.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="p-8 text-center text-gray-500">
+                    <td colSpan={8} className="p-8 text-center text-gray-500">
                       No hay pedidos todavia
                     </td>
                   </tr>
@@ -224,6 +226,20 @@ export default function AdminOrders() {
                         <td className="p-4 text-sm text-gray-700">{order.payerEmail}</td>
                         <td className="p-4 text-sm text-gray-700 max-w-[200px] truncate">
                           {order.description}
+                        </td>
+                        <td className="p-4 text-sm max-w-[200px] truncate">
+                          {order.socialLink ? (
+                            <a
+                              href={order.socialLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:underline"
+                            >
+                              {order.socialLink}
+                            </a>
+                          ) : (
+                            <span className="text-gray-400">—</span>
+                          )}
                         </td>
                         <td className="p-4 text-sm text-gray-700">{order.paymentMethod}</td>
                         <td className="p-4 text-sm text-gray-700 whitespace-nowrap">

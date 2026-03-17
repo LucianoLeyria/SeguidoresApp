@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
       description: p.description || "N/A",
       date: p.date_created,
       paymentMethod: p.payment_method_id,
+      socialLink: p.external_reference || "",
     }));
 
     return NextResponse.json({ orders, total: result.paging?.total || 0 });
