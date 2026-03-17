@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { ProductModal } from "./product-modal";
 import { useCart } from "@/lib/cart-context";
+import { ShoppingCart, Info } from "lucide-react";
 
 interface ProductCardProps {
   title: string;
@@ -61,64 +62,77 @@ export function ProductCard({
 
   return (
     <>
-      <Card className="py-3 gap-1 Agroup overflow-hidden hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-300 bg-white border border-gray-200 hover:border-orange-500 shadow-md hover:scale-[1.02] rounded-2xl flex flex-col">
-        <div className="relative w-full bg-white overflow-hidden">
-          {/* Imagen con altura ajustada responsive */}
-          <div className="relative w-full h-[220px] sm:h-[300px] md:h-[380px] lg:h-[420px]">
+      <Card className="group overflow-hidden bg-white border border-gray-200 hover:border-orange-400 shadow-sm hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300 rounded-2xl flex flex-col h-full">
+        {/* Image Section */}
+        <div className="relative w-full bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+          <div className="relative w-full h-[180px] sm:h-[220px] md:h-[260px]">
             {!imageLoaded && (
-              <div className="absolute inset-0 bg-white animate-pulse" />
+              <div className="absolute inset-0 bg-gray-100 animate-pulse" />
             )}
             <Image
               src={image}
-              alt="Social media background"
+              alt={title}
               fill
-              className="object-contain rounded-2xl group-hover:scale-105 transition-transform duration-300"
+              className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
               onLoad={() => setImageLoaded(true)}
             />
           </div>
 
-          {/* Logo centrado */}
-
-          <div className="absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden shadow-xl ring-4 ring-white/80 transition-all duration-300 bg-white">
+          {/* Platform Logo Badge */}
+          <div className="absolute top-3 right-3 z-10">
+            <div className="w-10 h-10 rounded-full overflow-hidden shadow-lg ring-2 ring-white bg-white">
               <Image
                 src={platformLogo || "/placeholder.svg"}
-                alt="Platform Logo"
-                width={80}
-                height={80}
+                alt="Platform"
+                width={40}
+                height={40}
                 className="object-cover w-full h-full"
               />
             </div>
           </div>
+
+          {/* Quantity Badge */}
+          <div className="absolute top-3 left-3 z-10">
+            <span className="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+              {quantity}
+            </span>
+          </div>
         </div>
 
-        {/* Contenido */}
-        <div className="p-3 sm:p-5 bg-white space-y-2 flex flex-col flex-1">
-          <div className="text-center flex-1 flex flex-col justify-center min-h-[60px]">
-            <h3 className="font-bold text-sm sm:text-base mb-1 text-gray-900 line-clamp-2">
+        {/* Content */}
+        <div className="p-4 flex flex-col flex-1 gap-3">
+          <div className="flex-1">
+            <h3 className="font-bold text-sm text-gray-900 line-clamp-2 leading-tight">
               {title}
             </h3>
-            <p className="text-lg sm:text-xl font-bold text-orange-500 truncate">
-              {price}
-            </p>
           </div>
 
-          {/* Botones centrados y responsive */}
+          <p className="text-xl font-bold text-orange-500">
+            {price}
+          </p>
 
-          <div className="flex flex-col sm:flex-row gap-2">
+          {/* Buttons */}
+          <div className="flex gap-2">
             <Button
               onClick={handleAddToCart}
               disabled={isAdded}
-              className="flex-1 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-semibold shadow-lg hover:shadow-orange-500/50 transition-all cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed text-xs sm:text-sm"
+              className="flex-1 bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-semibold shadow-sm hover:shadow-md transition-all cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed text-xs h-9 rounded-xl"
             >
-              {isAdded ? "Agregado al carrito" : "Comprar"}
+              {isAdded ? (
+                "Agregado"
+              ) : (
+                <>
+                  <ShoppingCart className="w-3.5 h-3.5 mr-1.5" />
+                  Comprar
+                </>
+              )}
             </Button>
             <Button
               onClick={() => setIsModalOpen(true)}
               variant="outline"
-              className="flex-1 border-2 border-gray-300 hover:border-orange-500 font-semibold bg-white text-gray-900 hover:bg-gray-50 cursor-pointer text-xs sm:text-sm"
+              className="border border-gray-200 hover:border-orange-400 hover:bg-orange-50 text-gray-700 hover:text-orange-600 cursor-pointer text-xs h-9 px-3 rounded-xl"
             >
-              Detalles
+              <Info className="w-3.5 h-3.5" />
             </Button>
           </div>
         </div>

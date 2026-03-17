@@ -1,66 +1,99 @@
-import { Mail, Phone } from "lucide-react"
+import { Mail, Phone, Instagram, Clock } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
 export function Footer() {
   return (
-    <footer className="bg-gray-50 text-gray-900 py-12 border-t border-gray-200">
+    <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Logo and Description */}
-          <div>
-            <div className="w-12 h-12 rounded-lg overflow-hidden mb-4 shadow-md border border-gray-200">
-              <Image src="/logo.jpg" alt="Logo" width={48} height={48} className="object-cover w-full h-full" />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Brand */}
+          <div className="md:col-span-1">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md border border-gray-700">
+                <Image src="/logo.jpg" alt="Logo" width={40} height={40} className="object-cover w-full h-full" />
+              </div>
+              <span className="font-bold text-base bg-gradient-to-r from-orange-400 to-pink-400 bg-clip-text text-transparent">
+                Crecimientoinsta
+              </span>
             </div>
-            <p className="text-gray-600 text-sm">Tu tienda de confianza para servicios de redes sociales</p>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Tu tienda de confianza para crecer en redes sociales. Servicios rapidos, seguros y de calidad.
+            </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Links */}
           <div>
-            <h3 className="font-bold text-lg mb-4 text-gray-900">Enlaces Rápidos</h3>
-            <ul className="space-y-2 text-gray-600 text-sm">
-              <li>
-                <Link href="/" className="hover:text-orange-500 transition-colors">
-                  Inicio
-                </Link>
-              </li>
-              <li>
-                <Link href="/" className="hover:text-orange-500 transition-colors">
-                  Productos
-                </Link>
-              </li>
-              <li>
-                <Link href="/sobre-nosotros" className="hover:text-orange-500 transition-colors">
-                  Sobre Nosotros
-                </Link>
-              </li>
+            <h3 className="font-semibold text-sm uppercase tracking-wider text-gray-300 mb-4">Navegacion</h3>
+            <ul className="space-y-2.5">
+              {[
+                { href: "/", label: "Inicio" },
+                { href: "/", label: "Productos" },
+                { href: "/sobre-nosotros", label: "Sobre Nosotros" },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="text-gray-400 hover:text-orange-400 transition-colors text-sm">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Information */}
+          {/* Services */}
           <div>
-            <h3 className="font-bold text-lg mb-4 text-gray-900">Contacto</h3>
+            <h3 className="font-semibold text-sm uppercase tracking-wider text-gray-300 mb-4">Servicios</h3>
+            <ul className="space-y-2.5 text-sm text-gray-400">
+              <li>Seguidores Instagram</li>
+              <li>Likes y Reproducciones</li>
+              <li>Seguidores TikTok</li>
+              <li>Suscriptores YouTube</li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="font-semibold text-sm uppercase tracking-wider text-gray-300 mb-4">Contacto</h3>
             <div className="space-y-3">
               <a
                 href="mailto:crecimientoinsta.arg@gmail.com"
-                className="flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors text-sm"
+                className="flex items-center gap-2.5 text-gray-400 hover:text-orange-400 transition-colors text-sm"
               >
-                <Mail className="w-5 h-5" />
+                <Mail className="w-4 h-4 flex-shrink-0" />
                 <span>crecimientoinsta.arg@gmail.com</span>
               </a>
               <a
                 href="tel:+5491149166103"
-                className="flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors text-sm"
+                className="flex items-center gap-2.5 text-gray-400 hover:text-orange-400 transition-colors text-sm"
               >
-                <Phone className="w-5 h-5" />
+                <Phone className="w-4 h-4 flex-shrink-0" />
                 <span>+54 9 11 4916-6103</span>
               </a>
+              <a
+                href="https://www.instagram.com/crecimientoinsta.arg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2.5 text-gray-400 hover:text-orange-400 transition-colors text-sm"
+              >
+                <Instagram className="w-4 h-4 flex-shrink-0" />
+                <span>@crecimientoinsta.arg</span>
+              </a>
+              <div className="flex items-center gap-2.5 text-gray-400 text-sm">
+                <Clock className="w-4 h-4 flex-shrink-0" />
+                <span>Entrega en 24hs</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mt-8 pt-8 text-center text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} Crecimientoinsta.arg. Todos los derechos reservados.</p>
+        <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-gray-500 text-xs">
+            &copy; {new Date().getFullYear()} Crecimientoinsta.arg. Todos los derechos reservados.
+          </p>
+          <div className="flex items-center gap-2">
+            <span className="text-gray-500 text-xs">Pagos seguros con</span>
+            <span className="text-xs font-semibold text-[#009ee3]">MercadoPago</span>
+          </div>
         </div>
       </div>
     </footer>
