@@ -13,14 +13,14 @@ export default function CheckoutPage() {
   const [isLoadingMP, setIsLoadingMP] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
-    fullName: "",
-    dni: "",
+    nombre: "",
+    apellido: "",
     socialLink: "",
   })
   const [errors, setErrors] = useState({
     email: "",
-    fullName: "",
-    dni: "",
+    nombre: "",
+    apellido: "",
     socialLink: "",
   })
 
@@ -31,19 +31,19 @@ export default function CheckoutPage() {
     return ""
   }
 
-  const validateFullName = (name: string) => {
+  const validateNombre = (name: string) => {
     const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
-    if (!name) return "El nombre completo es requerido"
+    if (!name) return "El nombre es requerido"
     if (!nameRegex.test(name)) return "El nombre solo puede contener letras"
-    if (name.trim().length < 3) return "El nombre debe tener al menos 3 caracteres"
+    if (name.trim().length < 2) return "El nombre debe tener al menos 2 caracteres"
     return ""
   }
 
-  const validateDNI = (dni: string) => {
-    const dniRegex = /^\d+$/
-    if (!dni) return "El DNI es requerido"
-    if (!dniRegex.test(dni)) return "El DNI solo puede contener numeros"
-    if (dni.length < 7 || dni.length > 8) return "El DNI debe tener 7 u 8 digitos"
+  const validateApellido = (name: string) => {
+    const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
+    if (!name) return "El apellido es requerido"
+    if (!nameRegex.test(name)) return "El apellido solo puede contener letras"
+    if (name.trim().length < 2) return "El apellido debe tener al menos 2 caracteres"
     return ""
   }
 
@@ -60,14 +60,14 @@ export default function CheckoutPage() {
     setErrors({ ...errors, email: validateEmail(value) })
   }
 
-  const handleFullNameChange = (value: string) => {
-    setFormData({ ...formData, fullName: value })
-    setErrors({ ...errors, fullName: validateFullName(value) })
+  const handleNombreChange = (value: string) => {
+    setFormData({ ...formData, nombre: value })
+    setErrors({ ...errors, nombre: validateNombre(value) })
   }
 
-  const handleDNIChange = (value: string) => {
-    setFormData({ ...formData, dni: value })
-    setErrors({ ...errors, dni: validateDNI(value) })
+  const handleApellidoChange = (value: string) => {
+    setFormData({ ...formData, apellido: value })
+    setErrors({ ...errors, apellido: validateApellido(value) })
   }
 
   const handleSocialLinkChange = (value: string) => {
@@ -84,18 +84,18 @@ export default function CheckoutPage() {
 
   const handleMercadoPago = async () => {
     const emailError = validateEmail(formData.email)
-    const fullNameError = validateFullName(formData.fullName)
-    const dniError = validateDNI(formData.dni)
+    const nombreError = validateNombre(formData.nombre)
+    const apellidoError = validateApellido(formData.apellido)
     const socialLinkError = validateSocialLink(formData.socialLink)
 
     setErrors({
       email: emailError,
-      fullName: fullNameError,
-      dni: dniError,
+      nombre: nombreError,
+      apellido: apellidoError,
       socialLink: socialLinkError,
     })
 
-    if (emailError || fullNameError || dniError || socialLinkError) {
+    if (emailError || nombreError || apellidoError || socialLinkError) {
       setShowErrorModal(true)
       return
     }
@@ -110,8 +110,8 @@ export default function CheckoutPage() {
           items,
           payer: {
             email: formData.email,
-            fullName: formData.fullName,
-            dni: formData.dni,
+            nombre: formData.nombre,
+            apellido: formData.apellido,
             socialLink: formData.socialLink,
           },
         }),
@@ -177,33 +177,34 @@ export default function CheckoutPage() {
                   {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email}</p>}
                 </div>
                 <div>
-                  <label className="text-sm text-gray-600 block mb-2">Nombre completo</label>
+                  <label className="text-sm text-gray-600 block mb-2">Nombre</label>
                   <input
                     type="text"
-                    value={formData.fullName}
-                    onChange={(e) => handleFullNameChange(e.target.value)}
-                    placeholder="Juan Perez"
+                    value={formData.nombre}
+                    onChange={(e) => handleNombreChange(e.target.value)}
+                    placeholder="Juan"
                     className={`w-full px-4 py-2 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none transition-colors ${
-                      errors.fullName
+                      errors.nombre
                         ? "border-red-500 focus:border-red-500"
                         : "border-gray-300 focus:border-orange-500"
                     }`}
                   />
-                  {errors.fullName && <p className="text-red-600 text-sm mt-1">{errors.fullName}</p>}
+                  {errors.nombre && <p className="text-red-600 text-sm mt-1">{errors.nombre}</p>}
                 </div>
                 <div>
-                  <label className="text-sm text-gray-600 block mb-2">DNI</label>
+                  <label className="text-sm text-gray-600 block mb-2">Apellido</label>
                   <input
                     type="text"
-                    value={formData.dni}
-                    onChange={(e) => handleDNIChange(e.target.value)}
-                    placeholder="12345678"
-                    maxLength={8}
+                    value={formData.apellido}
+                    onChange={(e) => handleApellidoChange(e.target.value)}
+                    placeholder="Perez"
                     className={`w-full px-4 py-2 bg-white border rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none transition-colors ${
-                      errors.dni ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-orange-500"
+                      errors.apellido
+                        ? "border-red-500 focus:border-red-500"
+                        : "border-gray-300 focus:border-orange-500"
                     }`}
                   />
-                  {errors.dni && <p className="text-red-600 text-sm mt-1">{errors.dni}</p>}
+                  {errors.apellido && <p className="text-red-600 text-sm mt-1">{errors.apellido}</p>}
                 </div>
                 <div>
                   <label className="text-sm text-gray-600 block mb-2">
@@ -263,8 +264,12 @@ export default function CheckoutPage() {
               <h2 className="text-xl font-bold text-gray-900 mb-4">Informacion de tu compra</h2>
               <div className="space-y-3">
                 <div>
-                  <p className="text-sm text-gray-600">Destinatario</p>
-                  <p className="text-gray-900">{formData.fullName || "Nombre completo"}</p>
+                  <p className="text-sm text-gray-600">Nombre</p>
+                  <p className="text-gray-900">{formData.nombre || "Tu nombre"}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Apellido</p>
+                  <p className="text-gray-900">{formData.apellido || "Tu apellido"}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Email</p>

@@ -24,11 +24,8 @@ export async function POST(request: NextRequest) {
         additional_info: payer.socialLink || "",
         payer: {
           email: payer.email,
-          name: payer.fullName,
-          identification: {
-            type: "DNI",
-            number: payer.dni,
-          },
+          name: payer.nombre,
+          surname: payer.apellido,
         },
         back_urls: {
           success: `${process.env.NEXT_PUBLIC_SITE_URL}/payment/success`,
