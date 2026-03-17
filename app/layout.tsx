@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 import { CartProvider } from "@/lib/cart-context"
 
@@ -105,8 +106,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      </head>
+      <body className="antialiased">
+        <CartProvider>{children}</CartProvider>
         {/* Meta Pixel */}
-        <script
+        <Script
+          id="meta-pixel"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               !function(f,b,e,v,n,t,s)
@@ -132,9 +138,6 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
-      </head>
-      <body className="antialiased">
-        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   )
