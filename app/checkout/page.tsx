@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Copy, Check, X } from "lucide-react"
+import { ArrowLeft, Copy, Check, X, Loader2 } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 
 export default function CheckoutPage() {
@@ -12,6 +12,7 @@ export default function CheckoutPage() {
   const [copied, setCopied] = useState(false)
   const [showInvoice, setShowInvoice] = useState(false)
   const [showErrorModal, setShowErrorModal] = useState(false)
+  const [isLoadingMP, setIsLoadingMP] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
     fullName: "",
@@ -93,6 +94,52 @@ export default function CheckoutPage() {
     const message = `Hola! Realicé una compra:\n\nProductos:\n${items.map((item) => `- ${item.title} x${item.amount}`).join("\n")}\n\nTotal: $${calculateTotal().toLocaleString()}\n\nEmail: ${formData.email}\nNombre: ${formData.fullName}\nDNI: ${formData.dni}`
     const whatsappUrl = `https://wa.me/5491149166103?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
+  }
+
+  const handleMercadoPago = async () => {
+    const emailError = validateEmail(formData.email)
+    const fullNameError = validateFullName(formData.fullName)
+    const dniError = validateDNI(formData.dni)
+
+    setErrors({
+      email: emailError,
+      fullName: fullNameError,
+      dni: dniError,
+    })
+
+    if (emailError || fullNameError || dniError) {
+      setShowErrorModal(true)
+      return
+    }
+
+    setIsLoadingMP(true)
+
+    try {
+      const response = await fetch("/api/create-preference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items,
+          payer: {
+            email: formData.email,
+            fullName: formData.fullName,
+            dni: formData.dni,
+          },
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.init_point) {
+        window.location.href = data.init_point
+      } else {
+        alert("Error al crear el pago. Intentá de nuevo.")
+      }
+    } catch (error) {
+      alert("Error al conectar con MercadoPago. Intentá de nuevo.")
+    } finally {
+      setIsLoadingMP(false)
+    }
   }
 
   const handleFinishPurchase = () => {
@@ -288,16 +335,29 @@ export default function CheckoutPage() {
             {/* Action Buttons */}
             <div className="space-y-3">
               <Button
-                onClick={handleWhatsAppContact}
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-6 text-lg shadow-lg hover:shadow-green-500/50 transition-all cursor-pointer"
+                onClick={handleMercadoPago}
+                disabled={isLoadingMP}
+                className="w-full bg-[#009ee3] hover:bg-[#0084c2] text-white font-semibold py-6 text-lg shadow-lg hover:shadow-blue-500/50 transition-all cursor-pointer disabled:opacity-70"
               >
-                Enviar comprobante por WhatsApp
+                {isLoadingMP ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    Procesando...
+                  </>
+                ) : (
+                  "Pagar con MercadoPago"
+                )}
               </Button>
+              <div className="relative flex items-center justify-center">
+                <div className="border-t border-gray-300 w-full"></div>
+                <span className="bg-gray-100 px-3 text-sm text-gray-500 absolute">o</span>
+              </div>
               <Button
                 onClick={handleFinishPurchase}
-                className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-semibold py-6 text-lg shadow-lg hover:shadow-orange-500/50 transition-all cursor-pointer"
+                variant="outline"
+                className="w-full border-2 border-gray-300 hover:border-orange-500 font-semibold py-6 text-lg cursor-pointer"
               >
-                Finalizar compra
+                Pagar por transferencia
               </Button>
             </div>
           </div>
